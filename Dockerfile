@@ -6,7 +6,7 @@ LABEL maintainer="UC San Diego ITS/ETS <ets-consult@ucsd.edu>"
 USER root
 
 # Remove existing scipy-ml TF version in favor of Donkeycar's preference
-RUN conda remove -y tensorflow'*' tensorboard keras-'*' --force && pip uninstall okpy
+RUN conda remove -y tensorflow'*' tensorboard keras-'*' --force && pip uninstall -y okpy
 
 # Rather than using the following (essentially following Donkey docs):
 #        conda env update -n base --file install/envs/ubuntu.yml --prune && \
