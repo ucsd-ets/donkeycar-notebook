@@ -19,7 +19,7 @@ RUN mkdir /opt/local && cd /opt/local && git clone https://github.com/autorope/d
 	cd donkeycar && git checkout master &&  \
 	sha256sum install/envs/ubuntu.yml && \
 	( [ "$(sha256sum install/envs/ubuntu.yml | cut -c 1-64)" = "8f373039c6b0607893c4b9049ca4da6e1efde9511187b549345574a41bb9d0b7" ] || ( echo "Signature on ubuntu.yml changed; check manual package list" && false ) ) &&  \
-	conda install --yes --freeze-installed -n base \
+	conda install --yes -n base \
 		h5py \
 		pillow \
 		opencv \
