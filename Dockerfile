@@ -1,38 +1,25 @@
-ARG BASE_CONTAINER=ucsdets/scipy-ml-notebook:2019.4.6
+ARG BASE_CONTAINER=ucsdets/scipy-ml-notebook:2020.2-stable
 FROM $BASE_CONTAINER
 
 LABEL maintainer="UC San Diego ITS/ETS <ets-consult@ucsd.edu>"
 
 USER root
 
-# Remove existing scipy-ml TF version in favor of Donkeycar's preference
-RUN conda remove -y tensorflow'*' tensorboard keras-'*' --force && pip uninstall -y okpy
-
-# Rather than using the following (essentially following Donkey docs):
-#        conda env update -n base --file install/envs/ubuntu.yml --prune && \
-# we must install them manually because "conda env update" doesn't support a "--freeze-installed" option
-# and we don't want to broadly upgrade all packages in our base image.
-# Future enhancement might be to use a one-liner Python script to extract package names
-# from the .yml file at runtime
-RUN echo WI20 setup
+# get donkeycar
 RUN mkdir /opt/local && cd /opt/local && git clone https://github.com/autorope/donkeycar && \
-	cd donkeycar && git checkout master &&  \
-	sha256sum install/envs/ubuntu.yml && \
-	( [ "$(sha256sum install/envs/ubuntu.yml | cut -c 1-64)" = "8f373039c6b0607893c4b9049ca4da6e1efde9511187b549345574a41bb9d0b7" ] || ( echo "Signature on ubuntu.yml changed; check manual package list" && false ) ) &&  \
-	conda install --yes -n base \
-		h5py \
-		pillow \
-		opencv \
-		matplotlib \
-		tornado \
-		docopt \
-		pandas \
-		pylint \
-		pytest \
-		pip \
-	&& \
-	pip install tensorflow==2.1.0 && \
-	pip install moviepy paho-mqtt PrettyTable && \
-	pip install -e . 
+	cd donkeycar && git checkout master && \
+	python3 setup.py bdist_wheel
+
+# install donkeycar into copy of tensorflow1 with all necessary dependencies using pip
+# and remove tensorflow1 kernel
+RUN conda create --name donkey --clone tensorflow1 && \
+	conda init bash && \
+	chmod -R 777 /home/jovyan/.cache && \
+	conda run -n donkey /bin/bash -c "pip install -e /opt/local/donkeycar[tf,tf_gpu]; ipython kernel install --name=donkey" && \
+	conda remove --name tensorflow1 --all && \
+	jupyter kernelspec uninstall tensorflow1 -f && \
+	chmod -R 6755 /home/jovyan/.cache
+
+RUN rm -rf /home/jovyan/*.deb
 
 USER $NB_UID
