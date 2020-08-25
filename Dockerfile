@@ -6,6 +6,7 @@ LABEL maintainer="UC San Diego ITS/ETS <ets-consult@ucsd.edu>"
 USER root
 
 # get donkeycar
+ENV DONKEYVER=3.1.5
 RUN mkdir /opt/local && cd /opt/local && git clone https://github.com/autorope/donkeycar && \
 	cd donkeycar && git checkout master && \
 	python3 setup.py bdist_wheel
