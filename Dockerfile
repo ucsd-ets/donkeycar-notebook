@@ -11,8 +11,9 @@ RUN mkdir /opt/local && cd /opt/local && git clone https://github.com/autorope/d
         python3 setup.py bdist_wheel
 
 # install donkeycar into copy of tensorflow1 with all necessary dependencies using pip
-RUN pip install -e /opt/local/donkeycar[tf,tf_gpu]
-RUN conda install cudnn && \
+
+RUN conda install cudnn=7.6.5
+RUN pip install -e /opt/local/donkeycar[tf,tf_gpu] && \
     pip install tensorflow-gpu==2.2.0
 
 USER $NB_UID
