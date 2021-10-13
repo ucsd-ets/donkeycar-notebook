@@ -34,10 +34,12 @@ RUN mkdir /opt/local && \
 
 ###
     conda env remove -n donkey && \
+#    conda create --name donkey && \
     conda env create -f install/envs/ubuntu.yml && \
     conda activate donkey && \
     pip install -e .[pc] && \
-    conda run -n donkeycar /bin/bash -c "ipython kernel install --name=donkeycar"
+    conda install -c anaconda ipykernel && \
+    python -m ipykernel install --name=donkeycar --display-name="Donkey Car"
 
 ###
 #RUN conda install cudnn=8.2.1
