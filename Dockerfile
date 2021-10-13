@@ -3,6 +3,7 @@ FROM ucsdets/scipy-ml-notebook:2021.3-stable
 LABEL maintainer="UC San Diego ITS/ETS <datahub@ucsd.edu>"
 
 USER root
+
 ARG DONKEYCAR_VERSION=4.3.0 DONKEYCAR_BRANCH=dev
 
 RUN mkdir /opt/local && \
