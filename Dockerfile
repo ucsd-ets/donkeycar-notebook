@@ -14,8 +14,8 @@ RUN mkdir /opt/local && \
     eval "$(conda shell.bash hook)" && \
     conda activate donkey && \
     pip install -e .[pc] && \
-    conda install -c anaconda ipykernel && \
-    pip install tensorflow-gpu==2.2.0 cudatoolkit==10.1 && \
+    conda install -c anaconda --yes ipykernel tensorflow-gpu=2.2.0 && \
+    conda install -c conda-forge --yes cudatoolkit=10.1 && \
     python -m ipykernel install --name=donkeycar --display-name="Donkey Car ($DONKEYCAR_VERSION-$DONKEYCAR_BRANCH)"
 
 USER $NB_UID
