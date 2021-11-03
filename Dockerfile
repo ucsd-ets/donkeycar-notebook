@@ -15,7 +15,7 @@ RUN mkdir /opt/local && \
     conda activate donkey && \
     pip install -e .[pc] && \
     conda install -c anaconda --yes --quiet --verbose ipykernel tensorflow-gpu=2.2.0 && \
-    conda install -c conda-forge --yes --quiet --verbose  cudatoolkit=10.1 && \
+#    conda install -c conda-forge --yes --quiet --verbose  cudatoolkit=10.1 && \
     python -m ipykernel install --name=donkeycar --display-name="Donkey Car ($DONKEYCAR_VERSION-$DONKEYCAR_BRANCH)"
 
 USER $NB_UID
