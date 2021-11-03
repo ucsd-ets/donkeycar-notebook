@@ -1,4 +1,4 @@
-FROM ucsdets/scipy-ml-notebook:2021.3-stable
+FROM ucsdets/datascience-notebook:2021.3-stable
 
 LABEL maintainer="UC San Diego ITS/ETS <datahub@ucsd.edu>"
 
