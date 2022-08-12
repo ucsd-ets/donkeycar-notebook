@@ -1,19 +1,22 @@
-FROM ucsdets/scipy-ml-notebook:2021.2.2
+FROM ucsdets/datascience-notebook:2021.3-stable
 
-LABEL maintainer="UC San Diego ITS/ETS <ets-consult@ucsd.edu>"
+LABEL maintainer="UC San Diego ITS/ETS <datahub@ucsd.edu>"
 
 USER root
 
-# get donkeycar
-ENV DONKEYVER=4.3.0
-RUN mkdir /opt/local && cd /opt/local && git clone https://github.com/autorope/donkeycar && \
-        cd donkeycar && git checkout master && \
-        python3 setup.py bdist_wheel
+ARG DONKEYCAR_VERSION=4.3.0 DONKEYCAR_BRANCH=dev
 
-# install donkeycar into copy of tensorflow1 with all necessary dependencies using pip
-
-RUN conda install cudnn=7.6.5
-RUN pip install -e /opt/local/donkeycar[tf,tf_gpu] && \
-    pip install tensorflow-gpu==2.2.0
+RUN mkdir /opt/local && \
+    cd /opt/local && \
+    git clone https://github.com/autorope/donkeycar -b $DONKEYCAR_BRANCH && \
+    cd donkeycar && \
+    conda env create -f install/envs/ubuntu.yml && \
+    eval "$(conda shell.bash hook)" && \
+    conda activate donkey && \
+    pip install -e .[pc] && \
+    conda install -c anaconda --yes --quiet ipykernel && \
+    conda install -c anaconda --yes --quiet tensorflow-gpu=2.2.0 && \
+#    conda install -c conda-forge --yes --quiet --verbose  cudatoolkit=10.1 && \
+    python -m ipykernel install --name=donkeycar --display-name="Donkey Car ($DONKEYCAR_VERSION-$DONKEYCAR_BRANCH)"
 
 USER $NB_UID
