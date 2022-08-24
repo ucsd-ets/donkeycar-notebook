@@ -6,6 +6,11 @@ USER root
 
 ARG DONKEYCAR_VERSION=4.3.22 DONKEYCAR_BRANCH=main
 
+# https://github.com/mamba-org/mamba/issues/1403#issuecomment-1024629004
+RUN conda update conda && \
+    mamba update mamba && \
+    pip install ipykernel==6.7.0
+
 RUN mkdir /opt/local && \
     cd /opt/local && \
     git clone https://github.com/autorope/donkeycar -b $DONKEYCAR_BRANCH && \
