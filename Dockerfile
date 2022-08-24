@@ -13,8 +13,15 @@ RUN mkdir /opt/local && \
     mamba env create -f install/envs/ubuntu.yml && \
     eval "$(conda shell.bash hook)"
 RUN mamba install -n donkey cudatoolkit=10.1 tensorflow-gpu=2.2.0 -c anaconda -y && \
-    pip install -e .[pc]
-#    conda install -c conda-forge --yes --quiet --verbose  cudatoolkit=10.1 && \
+    chown -R jovyan /home/jovyan
+
+
+
 RUN python -m ipykernel install --name=donkey --display-name="Donkey Car ($DONKEYCAR_VERSION-$DONKEYCAR_BRANCH)"
+RUN chown -R jovyan /opt/local
 
 USER $NB_UID
+RUN cd /opt/local/donkeycar && eval "$(conda shell.bash hook)" && conda activate donkey && \
+    pip install -e .[pc]
+#    conda install -c conda-forge --yes --quiet --verbose  cudatoolkit=10.1 && \
+
