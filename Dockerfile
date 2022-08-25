@@ -1,22 +1,32 @@
-FROM ucsdets/datascience-notebook:2021.3-stable
+FROM ucsdets/datahub-base-notebook:2022.3-stable
 
 LABEL maintainer="UC San Diego ITS/ETS <datahub@ucsd.edu>"
 
 USER root
 
-ARG DONKEYCAR_VERSION=4.3.0 DONKEYCAR_BRANCH=dev
+ARG DONKEYCAR_VERSION=4.3.22 DONKEYCAR_BRANCH=main
+
+# https://github.com/mamba-org/mamba/issues/1403#issuecomment-1024629004
+RUN conda update conda && \
+    mamba update mamba
 
 RUN mkdir /opt/local && \
     cd /opt/local && \
     git clone https://github.com/autorope/donkeycar -b $DONKEYCAR_BRANCH && \
     cd donkeycar && \
-    conda env create -f install/envs/ubuntu.yml && \
-    eval "$(conda shell.bash hook)" && \
-    conda activate donkey && \
-    pip install -e .[pc] && \
-    conda install -c anaconda --yes --quiet ipykernel && \
-    conda install -c anaconda --yes --quiet tensorflow-gpu=2.2.0 && \
-#    conda install -c conda-forge --yes --quiet --verbose  cudatoolkit=10.1 && \
-    python -m ipykernel install --name=donkeycar --display-name="Donkey Car ($DONKEYCAR_VERSION-$DONKEYCAR_BRANCH)"
+    mamba env create -f install/envs/ubuntu.yml && \
+    eval "$(conda shell.bash hook)"
+
+RUN mamba install -n donkey cudatoolkit=10.1 tensorflow-gpu=2.2.0 nb_conda_kernels -c anaconda -y && \
+    chown -R jovyan /home/jovyan
+
+RUN conda run -n donkey /bin/bash -c "ipython kernel install --name=donkey --display-name=\"Donkey Car ($DONKEYCAR_VERSION-$DONKEYCAR_BRANCH)\""
+RUN chown -R jovyan /opt/local
+
+WORKDIR /opt/local/donkeycar
+RUN conda run -n donkey /bin/bash -c "pip install -e .[pc]"
+
+WORKDIR /home/jovyan
 
 USER $NB_UID
+
