@@ -7,7 +7,8 @@ USER root
 ARG DONKEYCAR_VERSION=4.4.0 DONKEYCAR_BRANCH=main
 
 # https://github.com/mamba-org/mamba/issues/1403#issuecomment-1024629004
-RUN conda update conda && \
+RUN apt install openssl && \
+    conda update conda && \
     mamba update mamba
 
 RUN mkdir /opt/local && \
