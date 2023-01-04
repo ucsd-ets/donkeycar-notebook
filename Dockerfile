@@ -18,7 +18,7 @@ RUN mkdir /opt/local && \
     mamba env create -f install/envs/ubuntu.yml && \
     eval "$(conda shell.bash hook)"
 
-RUN mamba install -n donkey cudatoolkit=10.1 tensorflow-gpu=2.2.0 nb_conda_kernels -c anaconda -y && \
+RUN mamba install -n donkey cudatoolkit=10.1 tensorflow-gpu=2.2.0 nb_conda_kernels openssl=1.1.1s -c anaconda -y && \
     chown -R jovyan /home/jovyan
 
 RUN conda run -n donkey /bin/bash -c "ipython kernel install --name=donkey --display-name=\"Donkey Car ($DONKEYCAR_VERSION-$DONKEYCAR_BRANCH)\""
