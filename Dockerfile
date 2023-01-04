@@ -4,7 +4,7 @@ LABEL maintainer="UC San Diego ITS/ETS <datahub@ucsd.edu>"
 
 USER root
 
-ARG DONKEYCAR_VERSION=4.3.22 DONKEYCAR_BRANCH=main
+ARG DONKEYCAR_VERSION=4.4.0 DONKEYCAR_BRANCH=main
 
 # https://github.com/mamba-org/mamba/issues/1403#issuecomment-1024629004
 RUN conda update conda && \
@@ -29,4 +29,3 @@ RUN conda run -n donkey /bin/bash -c "pip install -e .[pc]"
 WORKDIR /home/jovyan
 
 USER $NB_UID
-
