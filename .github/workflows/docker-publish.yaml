@@ -11,8 +11,8 @@ on:
     - '**'
     # Publish semver tags as releases.
     tags: [ '*.*.*' ]
-  pull_request:
-    branches: [ master, '2021.4.3-kernel' ]
+  # pull_request:
+  #   branches: [ master, '2021.4.3-kernel' ]
   # workflow_dispatch:
 
 env:
