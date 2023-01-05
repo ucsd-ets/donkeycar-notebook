@@ -19,7 +19,7 @@ RUN mkdir /opt/local && \
 
 RUN mamba install -n donkey cudatoolkit -c conda-forge -y
 # RUN mamba remove -n donkey tensorflow -c conda-forge -y
-RUN mamba install -n donkey tensorflow-gpu=2.2.0 -c conda-forge -y
+RUN mamba install -n donkey tensorflow-gpu=2.2.0 -c anaconda -c conda-forge -y
 RUN mamba install -n donkey nb_conda_kernels -c anaconda -y
 RUN chown -R jovyan /home/jovyan
 
