@@ -10,6 +10,9 @@ ARG DONKEYCAR_VERSION=4.4.0 DONKEYCAR_BRANCH=main
 RUN conda update conda && \
     mamba update mamba
 
+# RUN curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh" && \
+#     bash Mambaforge-$(uname)-$(uname -m).sh
+
 RUN mkdir /opt/local && \
     cd /opt/local && \
     git clone https://github.com/autorope/donkeycar -b $DONKEYCAR_BRANCH && \
@@ -19,7 +22,7 @@ RUN mkdir /opt/local && \
 
 RUN mamba install -n donkey cudatoolkit -c conda-forge -y
 # RUN mamba remove -n donkey tensorflow -c conda-forge -y
-RUN mamba install -n donkey tensorflow-gpu=2.2.0 -c anaconda -c conda-forge -y
+RUN mamba install -vvv -n donkey tensorflow-gpu=2.2.0 -c anaconda -c conda-forge -y
 RUN mamba install -n donkey nb_conda_kernels -c anaconda -y
 RUN chown -R jovyan /home/jovyan
 
