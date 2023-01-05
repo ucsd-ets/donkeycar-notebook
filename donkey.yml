@@ -37,12 +37,14 @@ dependencies:
   - plotly
   - pyyaml
 #  - tensorflow=2.2.0
-  - cudatoolkit=10.1
-  - tensorflow-gpu=2.2.0
   - fastai
   - pynmea2
   - pyserial
   - utm
+# datahub additions
+  - cudatoolkit=10.1
+  - tensorflow-gpu=2.2.0
+  - nb_conda_kernels
   - pip:
     - git+https://github.com/autorope/keras-vis.git
     - simple-pid
