@@ -42,8 +42,8 @@ dependencies:
   - pyserial
   - utm
 # datahub additions
-  - cudatoolkit=10.2
-  - tensorflow-gpu
+  - cudatoolkit
+  - tensorflow-gpu=2.2.0
   - nb_conda_kernels
   - pip:
     - git+https://github.com/autorope/keras-vis.git
