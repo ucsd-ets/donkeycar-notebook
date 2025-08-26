@@ -18,8 +18,9 @@ RUN git clone https://github.com/autorope/donkeycar.git /opt/local/donkeycar
 
 RUN conda run -n donkey /bin/bash -c " \
     cd /opt/local/donkeycar && \
-    pip install -e .[pc] && \
-    pip install nb_conda_kernels"
+    pip install -e .[pc] "
+
+RUN mamba install -n donkey nb_conda_kernels -y
     
 RUN conda run -n donkey /bin/bash -c " \
     ipython kernel install --name=donkey --display-name=\"Donkey Car ($DONKEYCAR_VERSION-$DONKEYCAR_BRANCH)\""
