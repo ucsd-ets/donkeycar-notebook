@@ -14,9 +14,7 @@ RUN mamba create -n donkey python=3.11 -y
 
 RUN conda run -n donkey /bin/bash -c "git clone https://github.com/autorope/donkeycar.git /opt/local/donkeycar && cd /opt/local/donkeycar && pip install -e .[pc] "
 
-RUN conda run -n donkey /bin/bash -c " \
-    pip install nb_conda_kernels && \
-    ipython kernel install --name=donkey --display-name=\"Donkey Car ($DONKEYCAR_VERSION-$DONKEYCAR_BRANCH)\""
+RUN conda run -n donkey /bin/bash -c "ipython kernel install --name=donkey --display-name=\"Donkey Car ($DONKEYCAR_VERSION-$DONKEYCAR_BRANCH)\""
     
 RUN chown -R jovyan /opt/local
 WORKDIR /home/jovyan
