@@ -6,7 +6,7 @@ USER root
 
 ARG DONKEYCAR_VERSION=5.2.0 DONKEYCAR_BRANCH=main
 
-# https://github.com/mamba-org/mamba/issues/1403#issuecomment-1024629004
+# https://github.com/mamba-org/mamba/issues/1403#issuecomment-1024629004 
 RUN conda update conda && \
     mamba update mamba
     
