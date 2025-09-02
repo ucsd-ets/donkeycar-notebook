@@ -1,6 +1,6 @@
-FROM ucsdets/datahub-base-notebook:2022.3-stable
+FROM jupyter/datascience-notebook:2025-08-26
 
-LABEL maintainer="UC San Diego ITS/ETS <datahub@ucsd.edu>"
+# LABEL maintainer="UC San Diego ITS/ETS <datahub@ucsd.edu>"
 
 USER root
 
