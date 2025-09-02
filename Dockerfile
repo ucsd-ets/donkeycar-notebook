@@ -1,4 +1,4 @@
-FROM jupyter/datascience-notebook:2025-08-26
+FROM jupyter/datascience-notebook:latest
 
 # LABEL maintainer="UC San Diego ITS/ETS <datahub@ucsd.edu>"
 
