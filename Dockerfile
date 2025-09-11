@@ -1,4 +1,4 @@
-FROM jupyter/datascience-notebook:latest
+FROM ghcr.io/ucsd-ets/datascience-notebook:2025.2-stable
 
 # LABEL maintainer="UC San Diego ITS/ETS <datahub@ucsd.edu>"
 
