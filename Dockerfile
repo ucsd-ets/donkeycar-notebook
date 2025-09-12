@@ -9,7 +9,7 @@ ARG DONKEYCAR_VERSION=5.2.0 DONKEYCAR_BRANCH=main
 # https://github.com/mamba-org/mamba/issues/1403#issuecomment-1024629004 
 RUN mamba update conda mamba
     
-RUN mamba install -n base "notebook<7" jupyterlab notebook jupyter_server -y
+RUN mamba install -n base jupyterlab notebook jupyter_server -y
 
 RUN mamba create -n donkey python=3.11 -y
 
