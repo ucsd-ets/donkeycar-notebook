@@ -27,6 +27,9 @@ RUN conda run -n donkey /bin/bash -c " \
 ENV CONDA_DEFAULT_ENV=base
 ENV PATH=/opt/conda/envs/base/bin:$PATH
 
+RUN conda env remove -n python-3.9 || true \
+ && conda env remove -n python-3.10 || true
+
 RUN which python && python --version && jupyter --version
 
 RUN chown -R jovyan /opt/local /opt/conda
