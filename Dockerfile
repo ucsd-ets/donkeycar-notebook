@@ -9,7 +9,7 @@ ARG DONKEYCAR_VERSION=5.2.0 DONKEYCAR_BRANCH=main
 # https://github.com/mamba-org/mamba/issues/1403#issuecomment-1024629004 
 RUN mamba update conda mamba
     
-RUN mamba install -n base 'jupyterlab>=4' 'notebook>=7' jupyter_server -y
+# RUN mamba install -n base 'jupyterlab>=4' 'notebook>=7' jupyter_server -y
 
 RUN mamba create -n donkey python=3.11 -y
 
@@ -24,7 +24,10 @@ RUN mamba install -n donkey nb_conda_kernels -y
 RUN conda run -n donkey /bin/bash -c " \
     ipython kernel install --name=donkey --display-name=\"Donkey Car ($DONKEYCAR_VERSION-$DONKEYCAR_BRANCH)\""
     
-RUN chown -R jovyan /opt/local
+ENV CONDA_DEFAULT_ENV=base
+ENV PATH=/opt/conda/envs/base/bin:$PATH
+
+RUN chown -R jovyan /opt/local /opt/conda
 WORKDIR /home/jovyan
 
 USER $NB_UID
