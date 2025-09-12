@@ -27,6 +27,8 @@ RUN conda run -n donkey /bin/bash -c " \
 ENV CONDA_DEFAULT_ENV=base
 ENV PATH=/opt/conda/envs/base/bin:$PATH
 
+RUN which python && python --version && jupyter --version
+
 RUN chown -R jovyan /opt/local /opt/conda
 WORKDIR /home/jovyan
 
